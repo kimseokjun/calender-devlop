@@ -1,16 +1,25 @@
 package org.example.calendardevlop.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Event  extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String eventName;
     String content;
+    String userName;
+
+    public Event(String eventName, String content, String userName) {
+        this.eventName = eventName;
+        this.content = content;
+        this.userName = userName;
+    }
+
 }
