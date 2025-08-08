@@ -3,9 +3,7 @@ package org.example.calendardevlop.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.dto.EventSaveReqDto;
-import org.example.calendardevlop.dto.EventSaveRespDto;
-import org.example.calendardevlop.dto.EventgetAllRespDto;
+import org.example.calendardevlop.dto.*;
 import org.example.calendardevlop.service.EventSaveService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +28,10 @@ public class EventController {
     public ResponseEntity<List<EventgetAllRespDto>> getAllEvent() {
 
         return ResponseEntity.ok(eventservice.getAllEvent());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<EventUpdateRespDto>  updateEvent(@PathVariable long id, @RequestBody EventUpdateReqDto eventUpdateReqDto) {
+        return ResponseEntity.ok(eventservice.updateEvent(id, eventUpdateReqDto));
     }
 }

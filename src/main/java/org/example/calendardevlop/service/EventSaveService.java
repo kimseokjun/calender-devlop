@@ -2,9 +2,7 @@ package org.example.calendardevlop.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.dto.EventSaveReqDto;
-import org.example.calendardevlop.dto.EventSaveRespDto;
-import org.example.calendardevlop.dto.EventgetAllRespDto;
+import org.example.calendardevlop.dto.*;
 import org.example.calendardevlop.entity.Event;
 import org.example.calendardevlop.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -12,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +38,14 @@ public class EventSaveService {
         }
 
         return eventgetAllRespDto;
+    }
+
+    public EventUpdateRespDto updateEvent(long id, EventUpdateReqDto eventUpdateReqDto) {
+
+         Event event = eventrepository.findById(id).orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않는다."));
+         event.updateEvent(eventUpdateReqDto.getEventName(),eventUpdateReqDto.getContent());
+         Event save = eventrepository.save(event);
+
+        return new EventUpdateRespDto(save.getEventName(),save.getContent(),save.getUserName(),save.getCreatedAt(),save.getModifiedAt());
     }
 }
