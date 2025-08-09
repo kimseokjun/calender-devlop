@@ -48,4 +48,10 @@ public class EventSaveService {
 
         return new EventUpdateRespDto(save.getEventName(),save.getContent(),save.getUserName(),save.getCreatedAt(),save.getModifiedAt());
     }
+
+    public void deleteEvent(long id) {
+
+        Event event = eventrepository.findById(id).orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않는다."));
+        eventrepository.delete(event);
+    }
 }
