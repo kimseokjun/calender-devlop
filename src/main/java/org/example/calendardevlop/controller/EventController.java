@@ -3,8 +3,8 @@ package org.example.calendardevlop.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.dto.*;
-import org.example.calendardevlop.service.EventSaveService;
+import org.example.calendardevlop.dto.eventDto.*;
+import org.example.calendardevlop.service.EventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class EventController {
 
 
-    private final EventSaveService eventservice;
+    private final EventService eventservice;
 
     @PostMapping("/")
     public ResponseEntity<EventSaveRespDto> saveEvent(@RequestBody EventSaveReqDto eventSaveReqDto) {

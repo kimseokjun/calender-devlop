@@ -2,7 +2,7 @@ package org.example.calendardevlop.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.dto.*;
+import org.example.calendardevlop.dto.eventDto.*;
 import org.example.calendardevlop.entity.Event;
 import org.example.calendardevlop.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class EventSaveService {
+public class EventService {
 
     private final EventRepository eventrepository;
 

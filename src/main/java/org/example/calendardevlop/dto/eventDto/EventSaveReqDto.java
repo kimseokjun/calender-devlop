@@ -1,4 +1,4 @@
-package org.example.calendardevlop.dto;
+package org.example.calendardevlop.dto.eventDto;
 
 
 import lombok.AllArgsConstructor;
