@@ -3,8 +3,8 @@ package org.example.calendardevlop.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.Config.ErrorCode;
-import org.example.calendardevlop.Config.MyCustomException;
+import org.example.calendardevlop.Exception.ErrorCode;
+import org.example.calendardevlop.Exception.MyCustomException;
 import org.example.calendardevlop.dto.LoginReqDto;
 import org.example.calendardevlop.entity.User;
 import org.example.calendardevlop.repository.UserRepository;

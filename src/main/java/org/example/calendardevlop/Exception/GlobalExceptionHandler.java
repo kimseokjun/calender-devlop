@@ -1,4 +1,4 @@
-package org.example.calendardevlop.Config;
+package org.example.calendardevlop.Exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

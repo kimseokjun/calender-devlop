@@ -2,7 +2,7 @@ package org.example.calendardevlop.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendardevlop.Config.MyCustomException;
+import org.example.calendardevlop.Exception.MyCustomException;
 import org.example.calendardevlop.Validator.EventValidator;
 import org.example.calendardevlop.dto.eventDto.*;
 import org.example.calendardevlop.entity.Event;
@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import static org.example.calendardevlop.Config.ErrorCode.EVENT_NOT_FOUND;
+import static org.example.calendardevlop.Exception.ErrorCode.EVENT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +25,7 @@ public class EventService {
 
     @Transactional
     public EventSaveRespDto saveEvent(EventSaveReqDto dto) {
-        eventValidator.checktitle(dto.getTitle());
+        eventValidator.checkTitle(dto.getTitle());
         Event event = new Event(dto.getTitle(),dto.getContent(),dto.getUserName());
         Event saveevent = eventrepository.save(event);
 

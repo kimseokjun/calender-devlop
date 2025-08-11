@@ -1,9 +1,8 @@
 package org.example.calendardevlop.Validator;
 
 
-import jakarta.validation.ValidationException;
-import org.example.calendardevlop.Config.ErrorCode;
-import org.example.calendardevlop.Config.MyCustomException;
+import org.example.calendardevlop.Exception.ErrorCode;
+import org.example.calendardevlop.Exception.MyCustomException;
 import org.springframework.stereotype.Component;
 
 

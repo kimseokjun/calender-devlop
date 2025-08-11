@@ -3,6 +3,8 @@ package org.example.calendardevlop.service;
 
 import lombok.RequiredArgsConstructor;
 
+import org.example.calendardevlop.Config.PasswordEncoder;
+import org.example.calendardevlop.Validator.UserValidator;
 import org.example.calendardevlop.dto.userDto.*;
 import org.example.calendardevlop.entity.User;
 import org.example.calendardevlop.repository.UserRepository;
@@ -18,13 +20,16 @@ import java.util.NoSuchElementException;
 public class UserService {
 
     private final UserRepository userrepository;
+    private final UserValidator userValidator;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Transactional
     public UserSaveRespDto saveUser(UserSaveReqDto userSaveReqDto) {
-        User user = new User(userSaveReqDto.getUsername(),userSaveReqDto.getEmail(),userSaveReqDto.getPassword());
+        String encodedPassword = passwordEncoder.encode(userSaveReqDto.getPassword());
+        userValidator.checkUsername(userSaveReqDto.getUsername());
+        User user = new User(userSaveReqDto.getUsername(),userSaveReqDto.getEmail(),encodedPassword);
         user = userrepository.save(user);
-
         return new UserSaveRespDto(user.getUsername(),user.getEmail());
     }
 

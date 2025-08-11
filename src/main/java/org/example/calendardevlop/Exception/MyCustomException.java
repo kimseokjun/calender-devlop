@@ -1,4 +1,4 @@
-package org.example.calendardevlop.Config;
+package org.example.calendardevlop.Exception;
 
 public class MyCustomException extends RuntimeException {
     private final ErrorCode errorCode;

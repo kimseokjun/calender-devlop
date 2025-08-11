@@ -1,4 +1,4 @@
-package org.example.calendardevlop.Config;
+package org.example.calendardevlop.Exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
