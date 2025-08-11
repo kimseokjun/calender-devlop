@@ -18,13 +18,13 @@ public class EventController {
 
     private final EventService eventservice;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<EventSaveRespDto> saveEvent(@RequestBody EventSaveReqDto eventSaveReqDto) {
 
         return ResponseEntity.ok( eventservice.saveEvent(eventSaveReqDto));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<EventgetAllRespDto>> getAllEvent() {
 
         return ResponseEntity.ok(eventservice.getAllEvent());
