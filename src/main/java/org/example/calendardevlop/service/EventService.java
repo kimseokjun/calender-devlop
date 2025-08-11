@@ -2,6 +2,7 @@ package org.example.calendardevlop.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.calendardevlop.Config.MyCustomException;
 import org.example.calendardevlop.dto.eventDto.*;
 import org.example.calendardevlop.entity.Event;
 import org.example.calendardevlop.repository.EventRepository;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static org.example.calendardevlop.Config.ErrorCode.EVENT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +44,7 @@ public class EventService {
 
     public EventUpdateRespDto updateEvent(long id, EventUpdateReqDto eventUpdateReqDto) {
 
-         Event event = eventrepository.findById(id).orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않는다."));
+         Event event = eventrepository.findById(id).orElseThrow(()->  new MyCustomException(EVENT_NOT_FOUND));
          event.updateEvent(eventUpdateReqDto.getEventName(),eventUpdateReqDto.getContent());
          Event save = eventrepository.save(event);
 

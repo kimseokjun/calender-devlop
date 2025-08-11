@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.calendardevlop.dto.userDto.*;
 
 import org.example.calendardevlop.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.ErrorResponse;
@@ -22,11 +23,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("")
+    @PostMapping("/signup")
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserSaveReqDto userSaveReqDto, BindingResult bindingresult) {
+
         if(bindingresult.hasErrors()) {
             log.info("errors={}", bindingresult);
-            return ResponseEntity.badRequest().body("검증에러");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("검증에러");
         }
         return ResponseEntity.ok().body(userService.saveUser(userSaveReqDto));
     }
