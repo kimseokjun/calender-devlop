@@ -45,4 +45,9 @@ public class UserService {
     return new UserUpdateRespDto(user.getUsername(),user.getEmail());
 
     }
+
+    public void deleteUser(long id) {
+        User user = userrepository.findById(id).orElseThrow(() -> new NoSuchElementException("유저가 없습니다."));
+        userrepository.delete(user);
+    }
 }
