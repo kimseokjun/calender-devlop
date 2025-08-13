@@ -6,7 +6,9 @@ import org.example.calendardevlop.Exception.MyCustomException;
 import org.example.calendardevlop.Validator.EventValidator;
 import org.example.calendardevlop.dto.eventDto.*;
 import org.example.calendardevlop.entity.Event;
+import org.example.calendardevlop.entity.User;
 import org.example.calendardevlop.repository.EventRepository;
+import org.example.calendardevlop.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.example.calendardevlop.Exception.ErrorCode.EVENT_NOT_FOUND;
+import static org.example.calendardevlop.Exception.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -21,12 +24,14 @@ public class EventService {
 
 
     private final EventRepository eventrepository;
+    private final UserRepository userrepository;
     private final EventValidator eventValidator;
 
     @Transactional
     public EventSaveRespDto saveEvent(EventSaveReqDto dto) {
         eventValidator.checkTitle(dto.getTitle());
-        Event event = new Event(dto.getTitle(),dto.getContent(),dto.getUserName());
+        User user = userrepository.findById(dto.getUserId()).orElseThrow(()  -> new MyCustomException(USER_NOT_FOUND));
+        Event event = new Event(dto.getTitle(),dto.getContent(),user);
         Event saveevent = eventrepository.save(event);
 
         return new EventSaveRespDto(saveevent.getEventName(),saveevent.getContent(),saveevent.getUserName(),saveevent.getCreatedAt(),saveevent.getModifiedAt());
@@ -50,9 +55,8 @@ public class EventService {
 
          Event event = eventrepository.findById(id).orElseThrow(()->  new MyCustomException(EVENT_NOT_FOUND));
          event.updateEvent(eventUpdateReqDto.getEventName(),eventUpdateReqDto.getContent());
-         Event save = eventrepository.save(event);
 
-        return new EventUpdateRespDto(save.getEventName(),save.getContent(),save.getUserName(),save.getCreatedAt(),save.getModifiedAt());
+        return new EventUpdateRespDto(event.getEventName(),event.getContent(),event.getUserName(),event.getCreatedAt(),event.getModifiedAt());
     }
 
     public void deleteEvent(long id) {

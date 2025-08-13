@@ -33,5 +33,11 @@ public class Event extends BaseEntity{
         this.content = content;
         this.userName = userName;
     }
+    public Event(String eventName, String content, User user) {
+        this.eventName = eventName;
+        this.content = content;
+        this.user = user;
+    }
+
 
 }

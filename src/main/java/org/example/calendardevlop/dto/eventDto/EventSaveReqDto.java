@@ -10,5 +10,6 @@ public class EventSaveReqDto {
 
     private final String title;
     private final String content;
-    private final String userName;
+   // private final String userName;
+    private final long userId;
 }

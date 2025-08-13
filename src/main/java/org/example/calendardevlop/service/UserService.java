@@ -43,7 +43,7 @@ public class UserService {
 
         return usergetAllRespDto;
     }
-@Transactional
+    @Transactional
     public UserUpdateRespDto setUser(long id,UserUpdateReqDto userUpdateReqDto) {
 
     User user = userrepository.findById(id).orElseThrow(() -> new NoSuchElementException("유저가 없습니다."));
