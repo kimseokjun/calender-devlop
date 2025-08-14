@@ -56,7 +56,7 @@ public class EventService {
 //            eventgetAllRespDto.add(new EventgetAllRespDto(event.getEventName(),event.getContent(),event.getUserName(),event.getCreatedAt(),event.getModifiedAt()));
 //        }
 
-        return results.map( e -> new EventgetAllRespDto(e.getEventName(),e.getContent(),e.getUserName(),e.getCreatedAt(),e.getModifiedAt()));
+        return results.map( e -> new EventgetAllRespDto(e.getEventName(),e.getContent(),e.getUser().getUsername(),e.getCreatedAt(),e.getModifiedAt()));
     }
 
     public EventUpdateRespDto updateEvent(long id, EventUpdateReqDto eventUpdateReqDto) {
