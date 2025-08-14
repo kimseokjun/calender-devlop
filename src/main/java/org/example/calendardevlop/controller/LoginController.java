@@ -28,4 +28,14 @@ public class LoginController {
 
         return ResponseEntity.ok().body(user);
     }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        // 로그인하지 않으면 HttpSession이 null로 반환된다.
+        HttpSession session = request.getSession(false);
+        // 세션이 존재하면 -> 로그인이 된 경우
+        if (session != null) {
+            session.invalidate(); // 해당 세션(데이터)을 삭제한다.
+        }
+    }
 }

@@ -9,6 +9,9 @@ import org.example.calendardevlop.entity.Event;
 import org.example.calendardevlop.entity.User;
 import org.example.calendardevlop.repository.EventRepository;
 import org.example.calendardevlop.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,21 +37,26 @@ public class EventService {
         Event event = new Event(dto.getTitle(),dto.getContent(),user);
         Event saveevent = eventrepository.save(event);
 
-        return new EventSaveRespDto(saveevent.getEventName(),saveevent.getContent(),saveevent.getUserName(),saveevent.getCreatedAt(),saveevent.getModifiedAt());
+        return new EventSaveRespDto(saveevent.getEventName(),saveevent.getContent(),user.getUsername(),saveevent.getCreatedAt(),saveevent.getModifiedAt());
     }
 
 
 
     @Transactional(readOnly = true)
-    public List<EventgetAllRespDto> getAllEvent() {
+    public Page<EventgetAllRespDto> getAllEvent(int page, int size) {
 
-        List<Event> events = eventrepository.findAll();
-        List<EventgetAllRespDto>  eventgetAllRespDto = new ArrayList<>();
-        for (Event event : events) {
-            eventgetAllRespDto.add(new EventgetAllRespDto(event.getEventName(),event.getContent(),event.getUserName(),event.getCreatedAt(),event.getModifiedAt()));
-        }
+        Pageable pageable =  PageRequest.of(page, size);
 
-        return eventgetAllRespDto;
+        Page<Event> results = eventrepository.findAll(pageable);
+
+
+//        List<Event> events = eventrepository.findAll();
+//        List<EventgetAllRespDto>  eventgetAllRespDto = new ArrayList<>();
+//        for (Event event : events) {
+//            eventgetAllRespDto.add(new EventgetAllRespDto(event.getEventName(),event.getContent(),event.getUserName(),event.getCreatedAt(),event.getModifiedAt()));
+//        }
+
+        return results.map( e -> new EventgetAllRespDto(e.getEventName(),e.getContent(),e.getUserName(),e.getCreatedAt(),e.getModifiedAt()));
     }
 
     public EventUpdateRespDto updateEvent(long id, EventUpdateReqDto eventUpdateReqDto) {

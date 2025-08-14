@@ -24,12 +24,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody UserSaveReqDto userSaveReqDto, BindingResult bindingresult) {
-
-        if(bindingresult.hasErrors()) {
-            log.info("errors={}", bindingresult);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("검증에러");
-        }
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UserSaveReqDto userSaveReqDto) {
         return ResponseEntity.ok().body(userService.saveUser(userSaveReqDto));
     }
 

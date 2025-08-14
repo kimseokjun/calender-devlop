@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+import static org.example.calendardevlop.Exception.ErrorCode.EVENT_NOT_FOUND;
 import static org.example.calendardevlop.Exception.ErrorCode.USER_NOT_FOUND;
 
 @Service
@@ -25,7 +26,7 @@ public class CommentService {
 
     public void addComent(Long eventId, CommentSaveReqDto commentSaveReqDto) {
 
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new NoSuchElementException("존재하지 않는 이벤트"));
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new MyCustomException(EVENT_NOT_FOUND));
         User user =  userRepository.findById(commentSaveReqDto.getUserId()).orElseThrow(() -> new MyCustomException(USER_NOT_FOUND));
 
         commentRepository.save(new Comment(commentSaveReqDto.getContent(), user, event));
